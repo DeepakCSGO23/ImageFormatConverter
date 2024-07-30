@@ -4,17 +4,22 @@ import React, { useRef, useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-  const [convertedFileUrl, setConvertedFileUrl] = useState(null);
+  const [images, setImages] = useState([]);
   // Initializing the selected file state & image preview state
-  const handleFileChange = (e) => {
+  const handleImageFileChange = (e) => {
     const imageFile = e.target.files[0];
     if (imageFile) {
       const url = URL.createObjectURL(imageFile);
-      setImagePreviewUrl(url);
-      setSelectedFile(e.target.files[0]);
+      setImages((prev) => [
+        ...prev,
+        {
+          file: imageFile,
+          previewImageUrl: url,
+          convertedImageUrl: null,
+        },
+      ]);
     }
+    console.log(images);
   };
 
   // Converting any format to Webp format
@@ -33,7 +38,7 @@ const App = () => {
         ctx.drawImage(img, 0, 0);
         canvas.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
-          setConvertedFileUrl(url);
+          // setConvertedFileUrl(url);
         }, "image/webp");
       };
       img.src = e.target.result;
@@ -42,15 +47,15 @@ const App = () => {
   };
 
   // For generating Download
-  const handleImageDownload = () => {
-    if (!convertedFileUrl) return;
-    const link = document.createElement("a");
-    link.href = convertedFileUrl;
-    link.download = `${selectedFile.name.split(".")[0]}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // const handleImageDownload = () => {
+  //   if (!convertedFileUrl) return;
+  //   const link = document.createElement("a");
+  //   link.href = convertedFileUrl;
+  //   link.download = `${selectedFile.name.split(".")[0]}`;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
   return (
     <div className="flex flex-col bg-slate-900 roboto_cregular text-white h-screen w-screen items-center justify-center space-y-20 pl-10 pr-10">
       {/* All Popups */}
@@ -63,8 +68,8 @@ const App = () => {
           Convert any image to WebP effortlessly. Simple and fast conversion
         </p>
       </div>
-
-      {selectedFile ? (
+      <input type="file" onChange={handleImageFileChange} />
+      {/* {selectedFile ? (
         <div className="h-52 p-10 text-xs bg-white flex flex-col items-start w-full space-y-4 rounded-3xl">
           <div className="flex space-x-2">
             <img
@@ -90,7 +95,7 @@ const App = () => {
               </div>
             </div>
             <div className="flex">
-              {/* <img src="icons/close.svg" alt="close" height="25" width="25" /> */}
+              <img src="icons/close.svg" alt="close" height="25" width="25" />{" "}
               {convertedFileUrl ? (
                 <button
                   onClick={handleImageDownload}
@@ -115,11 +120,11 @@ const App = () => {
             className="file:p-3 file:rounded-3xl w-40"
             type="file"
             accept="image/*"
-            onChange={handleFileChange}
+            onChange={handleImageFileChange}
           />
           <h1>or drop your files here</h1>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
