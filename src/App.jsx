@@ -115,7 +115,10 @@ const App = () => {
   }, [images]);
   return (
     <div className="flex flex-col bg-slate-900 roboto_cregular text-white h-screen w-screen items-center justify-center space-y-20">
-      {/* All Popups */}
+      <h1 className="text-xs text-center bg-gray-700 w-screen p-4">
+        Designed & Developed by Deepak KN{" "}
+        <span className="text-green-300">kkvdhoorika@gmail.com</span>
+      </h1>
       <div className="space-y-4 w-[80%]">
         <h1 className="text-4xl roboto_csbold">
           Image Converter - Any Format to{" "}
