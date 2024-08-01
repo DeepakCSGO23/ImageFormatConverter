@@ -95,8 +95,10 @@ const App = () => {
 
   // Converting all images at once
   const handleConvertingAllImages = () => {
-    images.forEach((_, index) => {
-      handleConvertingImage(index);
+    images.forEach((image, index) => {
+      if (!image.convertedImageUrl) {
+        handleConvertingImage(index);
+      }
     });
   };
 
@@ -115,11 +117,11 @@ const App = () => {
   }, [images]);
   return (
     <div className="flex flex-col bg-slate-900 roboto_cregular text-white h-screen w-screen items-center justify-center space-y-20">
-      <h1 className="text-xs text-center bg-gray-700 w-screen p-4">
-        Designed & Developed by Deepak KN{" "}
-        <span className="text-green-300">kkvdhoorika@gmail.com</span>
-      </h1>
-      <div className="space-y-4 w-[80%]">
+      <div className="flex w-full items-center justify-center space-x-2 text-xs bg-slate-700 p-4">
+        <img src="/logo.svg" alt="logo" height="30" width="30" />
+        <h1 className="text-4xl text-green-300 roboto_csbold">WebpWeaver</h1>
+      </div>
+      <div className="space-y-4 w-[80%] lg:w-[60%] xl:w-[50%]">
         <h1 className="text-4xl roboto_csbold">
           Image Converter - Any Format to{" "}
           <span className="text-green-300"> Webp</span>
@@ -129,8 +131,8 @@ const App = () => {
         </p>
       </div>
       {images.length > 0 ? (
-        <div className="flex flex-col space-y-6 text-xs bg-white w-[85%] rounded-3xl p-8">
-          <div className="nav flex items-center space-x-1">
+        <div className="flex flex-col space-y-6 text-xs bg-white w-[85%] lg:w-[65%] xl:w-[55%] rounded-3xl p-8">
+          <div className="nav flex items-center justify-between">
             <label
               htmlFor="fileupload"
               className="flex space-x-1 items-center text-[#212427] cursor-pointer"
@@ -153,26 +155,22 @@ const App = () => {
             {isAllImagesCanBeDownloaded ? (
               <button
                 onClick={handleDownloadAll}
-                className="bg-[#2BCF6D] p-4 flex-shrink-0 ml-12 rounded-2xl"
+                className="bg-[#2BCF6D] p-4 flex-shrink-0 ml-auto rounded-2xl"
               >
                 Download All
               </button>
             ) : (
               <button
                 onClick={handleConvertingAllImages}
-                className="bg-[#2BCF6D] p-4 flex-shrink-0 ml-12 rounded-2xl"
+                className="bg-[#2BCF6D] p-4 flex-shrink-0 ml-auto rounded-2xl"
               >
                 Convert All
               </button>
             )}
           </div>
-
           <div className="main flex flex-col items-start justify-between space-y-2 overflow-x-scroll border-t-2 pt-6">
             {images.map((image, index) => (
-              <div
-                key={index}
-                className="flex space-x-2 items-center justify-evenly"
-              >
+              <div key={index} className="flex items-center justify-between">
                 <img
                   src={image.previewImageUrl}
                   className="object-cover h-8 w-8 bg-slate-200"
@@ -187,7 +185,7 @@ const App = () => {
                 <img
                   onClick={() => handleRemoveImage(index)}
                   src="/icons/close.svg"
-                  className="h-5 w-5"
+                  className="h-5 w-5 ml-auto"
                   alt="remove"
                   height="25"
                   width="25"
@@ -195,14 +193,14 @@ const App = () => {
                 {image.convertedImageUrl ? (
                   <button
                     onClick={() => handleImageDownload(index)}
-                    className="bg-[#2BCF6D] p-4 ml-auto rounded-2xl"
+                    className="bg-[#2BCF6D] p-4 rounded-2xl flex-shrink-0"
                   >
                     Download
                   </button>
                 ) : (
                   <button
                     onClick={() => handleConvertingImage(index)}
-                    className="bg-[#2BCF6D] p-4 ml-auto rounded-2xl flex-shrink-0"
+                    className="bg-[#2BCF6D] p-4 rounded-2xl flex-shrink-0"
                   >
                     Convert to Webp
                   </button>
@@ -212,7 +210,7 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div className="h-48 flex flex-col items-center justify-center w-[80%] text-xs space-y-4 border-2 border-dashed rounded-3xl">
+        <div className="h-48 flex flex-col items-center justify-center w-[85%] lg:w-[65%] xl:w-[55%] text-xs space-y-4 border-2 border-dashed rounded-3xl">
           <input
             className="file:p-3 file:rounded-3xl w-40"
             type="file"
@@ -222,6 +220,10 @@ const App = () => {
           <h1>or drop your files here</h1>
         </div>
       )}
+      <div className="flex flex-col w-full items-center justify-center space-x-2 text-xs bg-slate-700 p-4">
+        <h1>Designed & Developed by Deepak KN </h1>
+        <h2>kkvdhoorika@gmail.com</h2>
+      </div>
     </div>
   );
 };
