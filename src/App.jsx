@@ -131,7 +131,7 @@ const App = () => {
         </p>
       </div>
       {images.length > 0 ? (
-        <div className="flex flex-col space-y-6 text-xs bg-white w-[85%] lg:w-[65%] xl:w-[55%] rounded-3xl p-8">
+        <div className="flex flex-col space-y-6 text-xs xl:text-sm bg-white w-[85%] lg:w-[65%] xl:w-[55%] rounded-3xl p-8">
           <div className="nav flex items-center justify-between">
             <label
               htmlFor="fileupload"
@@ -210,9 +210,9 @@ const App = () => {
           </div>
         </div>
       ) : (
-        <div className="h-48 flex flex-col items-center justify-center w-[85%] lg:w-[65%] xl:w-[55%] text-xs space-y-4 border-2 border-dashed rounded-3xl">
+        <div className="h-48 flex flex-col items-center justify-center w-[85%] lg:w-[65%] xl:w-[55%] text-xs xl:text-sm space-y-4 border-2 border-dashed rounded-3xl">
           <input
-            className="file:p-3 file:rounded-3xl w-40"
+            className="file:p-3 file:rounded-3xl w-40 xl:w-44"
             type="file"
             accept="image/*"
             onChange={handleImageFileChange}
